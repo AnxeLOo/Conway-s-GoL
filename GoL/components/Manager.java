@@ -4,11 +4,20 @@ import GoL.constants.Const;
 
 public class Manager {
     private int[][] display;
-
+    /**
+     * Configura o tamanho da tela
+     * 
+     * @param display Tamanho da tela
+     */
     public void setScreen(int[][] display){
         this.display = display;
     }
     
+    /**
+     * Atualiza a população atual de celulas
+     * 
+     * @return Nova população
+     */
     public int[][] updatePopulation(){
         int[][] newPopulation = new int[this.display.length][this.display[0].length];
         
@@ -24,6 +33,11 @@ public class Manager {
         return this.display = newPopulation;
     }
 
+    /**
+     * Imprime a tela e tambem mostra a geração atual
+     * 
+     * @param g Geração atual
+     */
     public void drawScreen(int g) {
         System.out.println(g+"° generation\n");
 

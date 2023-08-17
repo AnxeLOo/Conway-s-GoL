@@ -2,11 +2,12 @@ package GoL;
 
 import java.util.Scanner;
 import GoL.components.Manager;
-import GoL.utils.Utils;
+import GoL.utilities.Utils;
 
 public class Main {
     public static Scanner sc = new Scanner(System.in);
     public static Manager manager = new Manager();
+  
 
     public static void main(String[] args) throws InterruptedException{
         String[] sortedArgs = Utils.sortInputs(args);
@@ -20,7 +21,6 @@ public class Main {
         int[][] screen = Utils.validatePopulationArgs(width, height, sortedArgs[4]);
 
         manager.setScreen(screen);
-            
         for (int gen = 1; gen <= generation; gen++) {
             Utils.cleanScreen();
             manager.drawScreen(gen);
