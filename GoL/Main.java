@@ -1,8 +1,6 @@
 package GoL;
 
-
 import java.util.Scanner;
-
 import GoL.components.Manager;
 import GoL.utils.Utils;
 
@@ -11,18 +9,18 @@ public class Main {
     public static Manager manager = new Manager();
 
     public static void main(String[] args) throws InterruptedException{
-        int generation = 30;
-        int[][] screen = {
-            {0, 1, 0, 0, 0, 0, 0},
-            {0, 0, 1, 0, 0, 0, 0},
-            {1, 1, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-        };
-        manager.setScreen(screen);
+        String[] sortedArgs = Utils.sortInputs(args);
+        int[] newArgs = Utils.checkArgs(sortedArgs);
+
+        int width = newArgs[0];
+        int height = newArgs[1];
+        int generation = newArgs[2];
+        int speed = newArgs[3];
         
+        int[][] screen = Utils.validatePopulationArgs(width, height, sortedArgs[4]);
+
+        manager.setScreen(screen);
+            
         for (int gen = 1; gen <= generation; gen++) {
             Utils.cleanScreen();
             manager.drawScreen(gen);
@@ -32,10 +30,9 @@ public class Main {
                 sc.nextLine();
                 sc.close();
             }
-            manager.updatePopulation();
-            System.out.println();
 
-            Thread.sleep(200);
+            manager.updatePopulation();
+            Thread.sleep(speed);
         }
     }   
 }

@@ -1,10 +1,11 @@
 package GoL.components;
 
+import GoL.constants.Const;
 public class Cell {
     private int condition;
     private int neighbors;
 
-    public void setCell(int startCondition, int startNeighbors) {
+    public Cell(int startCondition, int startNeighbors) {
         this.condition = startCondition;
         this.neighbors = startNeighbors;
     }
@@ -12,35 +13,28 @@ public class Cell {
     public int lifeRules() {
         int condition = this.condition;
 
-        if (condition == 1) {
-            if (this.neighbors > 3 || this.neighbors < 2) {
-                condition = 0;
-            } else if (this.neighbors >= 2) {
-                condition = 1;
-            }
-        } else if (condition == 0) {
-            if (this.neighbors == 3) {
-                condition = 1;
-            }
+        if (condition == Const.ALIVE) {
+            if (this.neighbors > 3 || this.neighbors < 2) {condition = Const.DEAD;} 
+            else if (this.neighbors >= 2) {condition = Const.ALIVE;}
+
+        } else if (condition == Const.DEAD) {
+            if (this.neighbors == 3) condition = Const.ALIVE;
         }
         return condition;
     }
 
-    public static int getCellNeighbors(int[][] screen, int yAxis, int xAxis) {
+    public static int getNeighbors(int[][] screen, int yAxis, int xAxis) {
         int alive = 0;
-        for (int y = -1; y <= 1; y++) {
-            for (int x = -1; x <= 1; x++) {
+        for (int y = -Const.OFFSET; y <= Const.OFFSET; y++) {
+            for (int x = -Const.OFFSET; x <= Const.OFFSET; x++) {
                 try {
-                    if ((yAxis == 0 && xAxis == 0) && (y == -1 || x == -1)) {
-                        throw new IndexOutOfBoundsException();
-                    }else if ((yAxis == 0 && xAxis != 0) && (y == -1)) {
-                        throw new IndexOutOfBoundsException();
-                    }else if ((yAxis != 0 && xAxis == 0) && (x == -1)) {
-                        throw new IndexOutOfBoundsException();
-                    }
+                    if ((yAxis == Const.CENTER && xAxis == Const.CENTER) && (y == -1 || x == -1)) continue;
+                    if ((yAxis == Const.CENTER && xAxis != Const.CENTER) && (y == -1)) continue;
+                    if ((yAxis != Const.CENTER && xAxis == Const.CENTER) && (x == -1)) continue;
+                    
                     if (!(y == 0 && x == 0)) {
                         int current = screen[y+yAxis][x+xAxis];
-                        if (current == 1) alive++;
+                        if (current == Const.ALIVE) alive++;
                     }
                 } catch (IndexOutOfBoundsException e) {}
             }
