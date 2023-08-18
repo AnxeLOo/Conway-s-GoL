@@ -10,6 +10,8 @@ public class Main {
   
 
     public static void main(String[] args) throws InterruptedException{
+        // String[] test = {"p=01#001#111"};
+
         String[] sortedArgs = Utils.sortInputs(args);
         int[] newArgs = Utils.checkArgs(sortedArgs);
 

@@ -94,12 +94,12 @@ public class Utils {
             splitted = pArgs.split("#");
             for (int y = 0; y < splitted.length; y++) {
                 for (int x = 0; x < splitted[y].length(); x++) {
-                    char current = splitted[y].charAt(x);
+                    String current = Character.toString(splitted[y].charAt(x));
 
-                    if (!(current == '1' || current == '0')) {
+                    if (!(current.equals("1")  || current.equals("0"))) {
                         throw new NumberFormatException();
                     }
-                    screen[y][x] = current-48;
+                    screen[y][x] = Integer.parseInt(current);
                 }
             }
         } catch (NumberFormatException e) {
